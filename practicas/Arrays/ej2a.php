@@ -1,3 +1,4 @@
+
 <HTML>
 <HEAD><TITLE> EJ1-Conversion IP Decimal a Binario </TITLE></HEAD>
 <BODY>
@@ -42,4 +43,21 @@ foreach ($arrayImpares as $index => $impar) {
    echo "<td> $suma </td>";
    echo "</tr>";    
 }
+
+//calculamos la media de los valores impares
+$sumaimpares="0"; $sumapares="0"; $contadorImp=""; $contadorPar="";
+foreach ($arrayImpares as $index => $impares) {
+
+    if ($index % 2 != 0) {
+    //estamos en los impares
+    $sumaimpares=$arrayImpares[$index] + $sumaimpares;
+    $contadorImp++;
+    }
+    else{//estamos en el par
+        $sumapares=$arrayImpares[$index] + $sumapares;
+        $contadorPar++;
+    }
+}
+echo "La media de los valores impares es: " . $sumapares/$contadorPar . "<br>";
+echo "La media de los valores pares es : " . $sumaimpares/$contadorImp . "<br>";
 ?>
