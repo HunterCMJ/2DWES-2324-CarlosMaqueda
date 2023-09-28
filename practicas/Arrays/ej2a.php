@@ -11,8 +11,13 @@
 
 <?php
 /*
+
+    Programa ej2a.phpmodificar el ejemplo anterior para que calcule la media de los valores que están en 
+    las posiciones pares y las posiciones impares.
+    Ej anterior:
     Definir un array y almacenar los 20 primeros números impares. Mostrar en la salida 
     una tabla como la de la figura
+
 */
 
 
