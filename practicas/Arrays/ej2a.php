@@ -47,6 +47,7 @@ foreach ($arrayImpares as $index => $impar) {
    echo "<td> $impar </td>";
    echo "<td> $suma </td>";
    echo "</tr>";    
+   
 }
 
 //calculamos la media de los valores impares
