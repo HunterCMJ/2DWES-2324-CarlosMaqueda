@@ -1,12 +1,13 @@
 <HTML>
-<HEAD> <TITLE> VALIDACIONES EN FORMULARIOS  </TITLE>
-</HEAD>
+
 <BODY>
+
     <Header><h1>Calculadora</h1></Header>
 
+    
 <?php
 
-include 'Functions/funcionesCalculadora.php';
+include './Functions/funcionesCalculadora.php';
 
 
 
@@ -17,7 +18,7 @@ $opcion=$_REQUEST['op'];
 
 
 switch ($opcion) {
-    
+
     case 'sum':
         $resultado=suma($numero1, $numero2);
         $signo='+';
