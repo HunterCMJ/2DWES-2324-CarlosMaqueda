@@ -17,5 +17,7 @@
 <body>
     
     <a href="./pe_altaped.php"><button>Hacer Pedido</button></a>
+    <a href="./pe_login.php"><button>Volver a Inicio de sesion</button></a>
+
 
 </body>
