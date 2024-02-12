@@ -1,7 +1,10 @@
 <?php
 
     session_start();
-
+    if (!$_SESSION['user']) {
+    
+        header("Location: ./pe_login.php");
+    }
     include './functions.php';
 
     $user = $_SESSION['user'];

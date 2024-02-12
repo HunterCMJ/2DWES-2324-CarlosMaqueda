@@ -40,7 +40,7 @@ function login($user, $psswd)
         echo "Error: " . $e->getMessage();
     }
 
-    //var_dump($resultado);
+    
     if (sizeof($resultado) != 0) {
         $psswdBaseDatos = $resultado[0]['contactLastName'];
         //si la contraseña de mi bdd, es la misma que la del formulaio, entra y guarda la sesion.
@@ -86,24 +86,7 @@ function fill_pe_inicio()
     $conn = null;
 }
 
-function SelectDataCookie($Producto)
-{
 
-    $conn = abrrirconn();
-
-    try {
-
-        $stmt = $conn->prepare("SELECT productCode,productName,quantityInStock,buyPrice FROM products WHERE productCode=:productCode"); //selecciono los datos de la tabla producto
-        $stmt->bindParam(":productCode", $Producto);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $ConsultaProducto = $stmt->fetchAll();
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-    $conn = null;
-    return $ConsultaProducto;
-}
 
 function addProductCookie($producto, $amount)
 {
@@ -125,9 +108,20 @@ function addProductCookie($producto, $amount)
 
         $carrito = json_decode($_COOKIE['carrito'], flags: JSON_OBJECT_AS_ARRAY); //con flags, o con true en el segundo parámetro. 
 
-        $carrito[$key]['productName'] = $datos[0]['productName'];
-        $carrito[$key]['amount'] = $amount;
-        $carrito[$key]['buyPrice'] = $datos[0]['buyPrice'];
+        if (isset($carrito[$key])) {
+
+            $carrito[$key]['amount'] += $amount;
+            $carrito[$key]['productName'] = $datos[0]['productName'];
+            $carrito[$key]['buyPrice'] = $datos[0]['buyPrice'];
+
+        }else{
+
+            $carrito[$key]['productName'] = $datos[0]['productName'];
+            $carrito[$key]['amount'] = $amount;
+            $carrito[$key]['buyPrice'] = $datos[0]['buyPrice'];
+        }
+
+        
 
         setcookie("carrito", json_encode($carrito), time() + (86400 * 30), "/");
     }
@@ -135,6 +129,47 @@ function addProductCookie($producto, $amount)
     return $carrito;
 }
 
+function removeProductCookie($producto, $amount)
+{
+
+    $key = $producto;
+
+    if (!isset($_COOKIE['carrito'])) {
+        //creamos el carrito
+        echo "añada productos al carrito";
+    } else {
+
+        $carrito = json_decode($_COOKIE['carrito'], flags: JSON_OBJECT_AS_ARRAY); //con flags, o con true en el segundo parámetro. y
+        
+        if(!isset($carrito[$key])){
+
+            "No hay ningun elemento que coincida en el carrito";
+        }else{
+
+            $carrito[$key]['amount'] -= $amount;
+            setcookie("carrito", json_encode($carrito), time() + (86400 * 30), "/");
+
+            if ($carrito[$key]['amount']==0) {
+
+                unset($carrito[$key]);
+                setcookie("carrito", json_encode($carrito), time() + (86400 * 30), "/");
+
+                if (count($carrito)==0) {
+
+                    setcookie("carrito", json_encode($carrito), time() - (3600), "/");
+                    header("Refresh:0");
+                }
+            }
+
+            
+        }
+
+        
+        return $carrito;
+    }
+
+    
+}
 
 function selecctOrderLineNumber()
 {
@@ -287,13 +322,30 @@ function selectAmount(){
     $conn = null;
     return $Consulta[0]['amount'];
 }
+function SelectDataCookie($Producto)
+{
 
+    $conn = abrrirconn();
+
+    try {
+
+        $stmt = $conn->prepare("SELECT productCode,productName,quantityInStock,buyPrice FROM products WHERE productCode=:productCode"); //selecciono los datos de la tabla producto
+        $stmt->bindParam(":productCode", $Producto);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $ConsultaProducto = $stmt->fetchAll();
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+    return $ConsultaProducto;
+}
 function calcularTotalCompra($carrito)
 {
 
     foreach ($carrito as $ProductID => $ProductDetails) {
 
-        $totalPayment = + ($ProductDetails['buyPrice'] * $ProductDetails['amount']);
+        $totalPayment =+ ($ProductDetails['buyPrice'] * $ProductDetails['amount']);
     }
     return $totalPayment;
 }

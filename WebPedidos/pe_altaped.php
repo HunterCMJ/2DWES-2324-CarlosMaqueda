@@ -1,11 +1,16 @@
 <?php
 
 session_start();
+
+if (!$_SESSION['user']) {
+    
+    header("Location: ./pe_login.php");
+}
 include './functions.php';
 include './redsys/apiRedsys.php';
 $user = $_SESSION['user'];
 
-//boton añadir a la cesta
+////////BOTON AÑADIR A LA CESTA
 if (($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['boton'] == "Añadir a la cesta")) {
 
     $producto = limpiar_campo($_POST["productos"]);
@@ -21,21 +26,58 @@ if (($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['boton'] == "Añadir a la 
         var_dump($carrito);
     }
 }
-//boton comprar
+////////BOTON QUITAR DE LA CESTA
+if (($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['boton'] == "Quitar de la cesta")) {
+
+    $producto = limpiar_campo($_POST["productos"]);
+    $amount = limpiar_campo($_POST["amount"]);
+
+    if (!$amount) {
+
+        echo "Introduzca una cantidad";
+
+    } else {
+        
+        $carrito=removeProductCookie($producto, $amount);
+    }
+}
+///////////////BOTON COMPRAR
 if (($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['boton'] == "COMPRAR")) {
 
-    $carrito=json_decode($_COOKIE['carrito'],true);
+    if (isset($_COOKIE['carrito'])) {
 
-    $checkNumber=rand(10000000, 99999999);
-    $totalPayment=intval(str_replace('.','',strval(calcularTotalCompra($carrito))));
+        $carrito = json_decode($_COOKIE['carrito'], true);
+
+        $checkNumber = rand(10000000,
+            99999999
+        );
+        $totalPayment = intval(str_replace('.', '', strval(calcularTotalCompra($carrito))));
+
+        $_SESSION['checkNumber'] = $checkNumber;
+        $_SESSION['totalPayment'] = $totalPayment;
+
+        var_dump($totalPayment);
+
+        header("Location: ./pe_pago.php");
+    } else {
+
+        echo "Nada en la cesta";
+    }
+}
+
+//////////////BOTON MOSTRAR CESTA
+
+if (($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['boton'] == "Mostrar Cesta")) {
     
-    $_SESSION['checkNumber']=$checkNumber;
-    $_SESSION['totalPayment']=$totalPayment;
-    
-    var_dump($totalPayment);
+    if (isset($_COOKIE['carrito'])) {
 
-   header("Location: ./pe_pago.php");
+        $carrito=json_decode($_COOKIE['carrito'],true);
+        var_dump($carrito);
 
+    } else {
+
+        echo "Nada en la cesta";
+    }
 }
 if (!empty($_GET)) {
 
@@ -95,6 +137,8 @@ if (!empty($_GET)) {
         <input type="text" name="amount" placeholder="cantidad">
         <br><br>
         <input type="submit" name="boton" value="Añadir a la cesta">
+        <input type="submit" name="boton" value="Quitar de la cesta">
+        <input type="submit" name="boton" value="Mostrar Cesta">
         <input type="submit" name="boton" value="COMPRAR">
 
     </form>

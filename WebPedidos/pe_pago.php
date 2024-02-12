@@ -1,6 +1,10 @@
 <?php
 
     session_start();
+
+    if (!$_SESSION['user']) {
+        header("Location: ./pe_login.php");
+    }
     // Se incluye la librería
     include './redsys/apiRedsys.php';
     include './functions.php';
@@ -19,8 +23,7 @@
 
     $id = $_SESSION["checkNumber"];
     $amount = $_SESSION["totalPayment"];
-
-    var_dump($id, $amount);
+    echo "va a realizar un pago con identificador: $id";
     // Se Rellenan los campos
     $miObj->setParameter("DS_MERCHANT_AMOUNT", $amount);
     $miObj->setParameter("DS_MERCHANT_ORDER", $id);
@@ -50,12 +53,13 @@
 
 <body>
     <form name="frm" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" target="_blank">
-         <input type="hidden" name="Ds_SignatureVersion" value="<?php echo $version; ?>" /></br>
-         <input type="hidden" name="Ds_MerchantParameters" value="<?php echo $params; ?>" /></br>
-         <input type="hidden" name="Ds_Signature" value="<?php echo $signature; ?>" /></br>
+         <input type="hidden" name="Ds_SignatureVersion" value="<?php echo $version; ?>" />
+         <input type="hidden" name="Ds_MerchantParameters" value="<?php echo $params; ?>" />
+         <input type="hidden" name="Ds_Signature" value="<?php echo $signature; ?>" /><br>
         <input type="submit" value="PAGAR">
     </form>
-        <a href="./pe_altaped.php"><button>Volver A Pedidos</button></a>
+    
+    <a href="./pe_altaped.php"><button>Volver A Pedidos</button></a>
 </body>
 
 </html>
