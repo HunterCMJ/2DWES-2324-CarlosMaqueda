@@ -3,7 +3,7 @@ echo "Inicio db.php"."<br>";
 
 	$servername = "localhost";
 	$username = "root";
-	$password = "rootroot";
+	$password = "";
 	$database = "sakila";
 
 	try {
