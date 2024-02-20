@@ -36,8 +36,6 @@ function select_login($email,$psswd){
     } else {
         return false;
     }
-
-    return $resultado;
 }
 
 

@@ -1,10 +1,12 @@
 <?php
 if (isset($_SESSION['nombre'])) {
+
 	session_unset();
 	session_destroy();
-	
-	
+	header("location: ./movlogin.php");
+
 }else{
+
 	session_start();
 	$user = $_SESSION['nombre'];
 	$id = $_SESSION['idcliente'];
