@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+$user = $_SESSION['nombre'];
+$id = $_SESSION['idcliente'];
+
+
+?>
+
 <html>
 
 <head>

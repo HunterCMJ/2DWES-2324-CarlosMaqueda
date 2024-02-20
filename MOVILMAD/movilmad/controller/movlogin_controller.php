@@ -12,12 +12,10 @@
         //model
         require_once("../models/movlogin_model.php");
 
-    
-
         if(select_login($email,$psswd_user)){
-            header("location: ../movwelcome");
+            header("location: ./movalquilar_controller.php");
         }else{
-            header("location: ../movlogin");
+            header("location: ../movlogin.php");
         }
         
         

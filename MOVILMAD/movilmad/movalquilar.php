@@ -1,8 +1,23 @@
-<?php 
-
+<?php
+if (isset($_SESSION['nombre'])) {
+	session_unset();
+	session_destroy();
+	
+	
+}else{
 	session_start();
-	$user=$_SESSION['nombre'];
-	$id=$_SESSION['idcliente'];
+	$user = $_SESSION['nombre'];
+	$id = $_SESSION['idcliente'];
+	
+}
+
+//include "./controller/movalquilar_controller.php";
+
+if (isset($_GET['coches'])) {
+	
+	$coches = unserialize(urldecode($_GET['coches']));
+}
+
 ?>
 
 <html>
@@ -18,6 +33,7 @@
 <body>
 	<h1>Servicio de ALQUILER DE E-CARS</h1>
 
+
 	<div class="container ">
 		<!--Aplicacion-->
 		<div class="card border-success mb-3" style="max-width: 30rem;">
@@ -26,15 +42,20 @@
 
 
 				<!-- INICIO DEL FORMULARIO -->
-				<form action="" method="post">
+				<form action="./controller/movalquilar_controller.php" method="post">
 
-					<B>Bienvenido/a:</B> <?php echo $user?> <BR><BR>
-					<B>Identificador Cliente:</B> <?php echo $id?> <BR><BR>
+					<B>Bienvenido/a:</B> <?php echo $user ?> <BR><BR>
+					<B>Identificador Cliente:</B> <?php echo $id ?> <BR><BR>
 
 					<B>Vehiculos disponibles en este momento:</B> <BR><BR>
 
 					<B>Matricula/Marca/Modelo: </B><select name="vehiculos" class="form-control">
-
+						<?php
+						// Iteramos sobre los coches y generamos las opciones del select
+						foreach ($coches as $coche) {
+							echo "<option value='" . $coche['matricula'] . "'>" . $coche['matricula'] . "</option>";
+						}
+						?>
 					</select>
 
 
