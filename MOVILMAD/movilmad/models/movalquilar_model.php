@@ -5,7 +5,7 @@ function select_coches(){
 
     try {
         //sentencia
-        $stmt = $conexion->prepare("SELECT matricula, marca, modelo, preciobase FROM rvehiculos"); 
+        $stmt = $conexion->prepare("SELECT matricula, marca, modelo, preciobase FROM rvehiculos where disponible = 'S'"); 
     
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);

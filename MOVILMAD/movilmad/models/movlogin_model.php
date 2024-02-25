@@ -25,8 +25,8 @@ function select_login($email,$psswd){
 
         if ($psswdBaseDatos == $psswd) {
             session_start();
-            $_SESSION['nombre'] = $resultado[0]['nombre'];
-            $_SESSION['idcliente'] = $resultado[0]['idcliente'];
+            $_SESSION['user'] = $resultado[0]['nombre'];
+            $_SESSION['id'] = $resultado[0]['idcliente'];
 
             return true;
         } else {

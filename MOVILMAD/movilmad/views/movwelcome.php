@@ -1,8 +1,8 @@
 ﻿<?php
 
-	session_start();
-	$user=$_SESSION['nombre'];
-	$id=$_SESSION['idcliente'];
+	
+	$user=$_SESSION['user'];
+	$id=$_SESSION['id'];
 
 ?>
 
@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Bienvenido a MovilMAD</title>
-	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 
 <body>
@@ -32,14 +32,14 @@
 
 				<!--Formulario con botones -->
 
-				<input type="button" value="Alquilar Vehículo" onclick="window.location.href='./movalquilar.php'" class="btn btn-warning disabled">
+				<input type="button" value="Alquilar Vehículo" onclick="window.location.href='./movalquilar_controller'" class="btn btn-warning disabled">
 				<input type="button" value="Consultar Alquileres" onclick="window.location.href='./movconsultar.php'" class="btn btn-warning disabled">
 				<input type="button" value="Devolver Vehículo" onclick="window.location.href='./movdevolver'" class="btn btn-warning disabled">
 				</br></br>
 
 
 
-				<BR><a href="">Cerrar Sesión</a>
+				<BR><a href="./movlogout_controller.php">Cerrar Sesión</a>
 			</div>
 
 
