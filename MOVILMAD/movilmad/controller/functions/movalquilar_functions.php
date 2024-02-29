@@ -16,41 +16,85 @@ function limpiar_campo($campoformulario)
 function addProductCookie($vehiculo,$fecha)
 {
 
+    
     $vehiculo=explode(',',$vehiculo);
 
     $matricula=$vehiculo[0];
     $precio=$vehiculo[1];
 
-    var_dump($matricula,$precio);
+    
 
     if (!isset($_COOKIE['carrito'])) {
         //CREAMOS EL CARRITO SI NO ESTA CREADO
 
         $carrito = array();
 
-        //$carrito
+        
         $carrito[$matricula]['precio'] = $precio;
         $carrito[$matricula]['fecha'] = $fecha;
         
-        var_dump($carrito);
+        
         setcookie("carrito", json_encode($carrito), time() + (86400 * 30), "/");
     } else {
+        //con flags, o con true en el segundo parámetro. 
+        $carrito = json_decode($_COOKIE['carrito'], flags: JSON_OBJECT_AS_ARRAY);
 
-        $carrito = json_decode($_COOKIE['carrito'], flags: JSON_OBJECT_AS_ARRAY); //con flags, o con true en el segundo parámetro. 
+        if (sizeof($carrito)<=2) {
 
-        if (isset($carrito[$matricula])) {
+            if (isset($carrito[$matricula])) {
 
-            require_once("../views/error_views/movcarrito_error.php");
-
+                require_once("../views/error_views/movcarrito_error.php");
+    
+            }else{
+    
+                $carrito[$matricula]['precio'] = $precio;
+                $carrito[$matricula]['fecha'] = $fecha;
+            }
+    
+            setcookie("carrito", json_encode($carrito), time() + (86400 * 30), "/");
         }else{
 
-            $carrito[$matricula]['precio'] = $precio;
-            $carrito[$matricula]['fecha'] = $fecha;
+            require_once("../views/error_views/movcarrito_overflow.php");
         }
 
-        setcookie("carrito", json_encode($carrito), time() + (86400 * 30), "/");
+       
     }
 
     return $carrito;
     
 }
+
+function removeProductCookie($vehiculo)
+{
+    $vehiculo = explode(',', $vehiculo);
+
+    $matricula = $vehiculo[0];
+
+    if (!isset($_COOKIE['carrito'])) {
+        require_once("../views/error_views/movcarrito_empty.php");
+    } else {
+
+        $carrito = json_decode($_COOKIE['carrito'], flags: JSON_OBJECT_AS_ARRAY); //con flags, o con true en el segundo parámetro. y
+
+        if (!isset($carrito[$matricula])) {
+
+            require_once("../views/error_views/movcarrito_empty.php");
+        } else {
+
+            unset($carrito[$matricula]);
+            setcookie("carrito", json_encode($carrito), time() + (86400 * 30), "/");
+
+            if (count($carrito) == 0) {
+
+                setcookie("carrito", json_encode($carrito), time() - (3600), "/");
+                header("Refresh:0");
+            }
+        }
+
+        return $carrito;
+    }
+
+    
+}
+
+    
