@@ -97,8 +97,7 @@ if (!empty($_GET)) {
 
     foreach ($carrito as $idVuelo => $details) {
 
-
-        insert_reserva($conexion, $CodCompra, $idVuelo, $_SESSION['dni'], $details['fecha'], $details['asientos'], $details['precio']);
+        insertupdate_reserva($conexion, $CodCompra, $idVuelo, $_SESSION['dni'], $details['fecha'], $details['asientos'], $details['precio']);
        
     }
     

@@ -37,7 +37,7 @@ function select_MAX_reserva(){
     return $Consulta[0]['max'];
 }
 
-function insert_reserva($conexion,$id_reserva,$idVuelo,$dni_pasajero,$fecha_reserva,$num_asientos,$preciototal){
+function insertupdate_reserva($conexion,$id_reserva,$idVuelo,$dni_pasajero,$fecha_reserva,$num_asientos,$preciototal){
 
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -53,15 +53,23 @@ function insert_reserva($conexion,$id_reserva,$idVuelo,$dni_pasajero,$fecha_rese
         $stmt->bindParam(":preciototal", $preciototal);
         
         $stmt->execute();
+
+        $stmt1 = $conexion->prepare("UPDATE vuelos SET asientos_disponibles = asientos_disponibles - :num_asientos WHERE id_vuelo = :id_vuelo");
+
+        $stmt1->bindParam(":id_reserva", $id_reserva);
+        $stmt1->bindParam(":id_vuelo", $idVuelo);
+        $stmt1->bindParam(":dni_pasajero", $dni_pasajero);
+        $stmt1->bindParam(":fecha_reserva", $fecha_reserva);
+        $stmt1->bindParam(":num_asientos", $num_asientos);
+        $stmt1->bindParam(":preciototal", $preciototal);
+        
+        $stmt1->execute();
         
     } catch (Exception $e) {
 
         $conexion->rollBack();
         echo "Failed: " . $e->getMessage();
     }
-   
-
-   
 
 
 }

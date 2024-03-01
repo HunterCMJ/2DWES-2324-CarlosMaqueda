@@ -65,7 +65,7 @@ $fecha = $_SESSION['fecha'];
 								
 							</tr>
 							
-							<?php if ($consultas) {
+							<?php if (isset($_POST["consultar"])) {
 									foreach ($consultas as $consulta) { ?>
 									<tr>
 										<?php foreach ($consulta as $key => $value){?>
