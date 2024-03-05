@@ -55,6 +55,7 @@ $fecha = $_SESSION['fecha'];
 					<B>Número Asientos</B><input type="number" name="asientos" size="3" min="1" max="100" value="1" class="form-control">
 					<BR><BR>
 					<div>
+					<?php if ($carrito){?>
 						<table>
 						<tr>
 								<th>Vuelo</th>
@@ -64,7 +65,7 @@ $fecha = $_SESSION['fecha'];
 								<th>Fecha</th>
 
 							</tr>
-							<?php if ($carrito) { foreach ($carrito as $idvuelo => $datos) { ?>
+							<?php foreach ($carrito as $idvuelo => $datos) { ?>
 								<tr>
 									<td>
 										<?php echo $idvuelo; ?>

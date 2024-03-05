@@ -56,12 +56,8 @@ function insertupdate_reserva($conexion,$id_reserva,$idVuelo,$dni_pasajero,$fech
 
         $stmt1 = $conexion->prepare("UPDATE vuelos SET asientos_disponibles = asientos_disponibles - :num_asientos WHERE id_vuelo = :id_vuelo");
 
-        $stmt1->bindParam(":id_reserva", $id_reserva);
         $stmt1->bindParam(":id_vuelo", $idVuelo);
-        $stmt1->bindParam(":dni_pasajero", $dni_pasajero);
-        $stmt1->bindParam(":fecha_reserva", $fecha_reserva);
         $stmt1->bindParam(":num_asientos", $num_asientos);
-        $stmt1->bindParam(":preciototal", $preciototal);
         
         $stmt1->execute();
         

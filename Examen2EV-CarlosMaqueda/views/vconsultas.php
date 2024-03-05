@@ -53,20 +53,19 @@ $fecha = $_SESSION['fecha'];
 					</select>
 					<BR><BR>
 					<div>
+						<?php if (isset($_POST["consultar"])) {?>
 						<table>
-							
+						 	 	
 						<tr>
-								<th>RESERVA</th>
-								<th>VUELO</th>
-								<th>DNI</th>
-								<th>FECHA</th>
-								<th>ASIENTOS</th>
-								<th>PRECIO TOTAL</th>
+								<th>origen</th>
+								<th>destino</th>
+								<th>fechahorasalida</th>
+								<th>fechahorallegada</th>
+								<th>nombre Aerolinea</th>
 								
 							</tr>
 							
-							<?php if (isset($_POST["consultar"])) {
-									foreach ($consultas as $consulta) { ?>
+							<?php foreach ($consultas as $consulta) { ?>
 									<tr>
 										<?php foreach ($consulta as $key => $value){?>
 
@@ -74,9 +73,10 @@ $fecha = $_SESSION['fecha'];
 
 									<?php } }?>
 										</tr>
-								<?php }?>
+								
 							</tr>
 						</table>
+						<?php }?>
 					</div>
 					<br><br>
 					<div>

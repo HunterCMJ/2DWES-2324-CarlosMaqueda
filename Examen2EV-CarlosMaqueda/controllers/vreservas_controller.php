@@ -49,10 +49,6 @@ if (isset($_POST["agregar"])) {
     $params = $objRedsys->createMerchantParameters();
     $signature = $objRedsys->createMerchantSignature($kc);
 
-
-    ///////////////////////////////////
-
-
 }
 
 if (isset($_POST["vaciar"])) {
@@ -75,12 +71,16 @@ if (isset($_POST["volver"])) {
     header('Location: ./vinicio_controller.php');
 }
 
-if (!empty($_GET)) {
+if (!empty($_GET) && isset($_COOKIE['carrito'])) {
    
     require_once("./redsys/apiRedsys.php");
 
+    require_once("../db/vconfig.php");
+    require_once("../models/vreservas_model.php");
+
     $params = $_GET["Ds_MerchantParameters"];
     $objRedsys = new RedsysAPI;
+    
     $Respuesta = decodeRedsys($objRedsys, $params);
     $CodCompra = idreserva();
     $total = substr(totalCompra($objRedsys, $params), 0, -2);
@@ -105,16 +105,17 @@ if (!empty($_GET)) {
     if (intval($Respuesta)>=0 && intval($Respuesta)<=99) {
     
         $conexion->commit();
-        echo "compra realizada correctamente $Respuesta";
+        
         setcookie("carrito", '', time() - (86400 * 30), "/");
+        $carrito='';
 
-        header("Location: ./vreservas_controller");
+        require_once("../views/vcompracorrecta.php");
     }
     else{
 
         $conexion->rollBack();
         echo "error en la compra $Respuesta </br>";
-
+        
         echo "Se ha conservado el carrito";
         
     }
