@@ -15,7 +15,7 @@
         <!--Aplicacion-->
 		<div class="card border-success mb-3" style="max-width: 30rem;">
 		<div class="card-header">Login Usuario - SPOTIFY IES Leonardo Da Vinci</div>
-		<div class="card-body">
+		<div class="card-body">  
 		
 		<form id="" name="" action="./login_controller.php" method="post" class="card-body">
 		
