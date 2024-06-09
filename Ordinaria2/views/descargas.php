@@ -1,10 +1,4 @@
-<?php
-$Name = $_SESSION['Name'];
-$Address = $_SESSION['Address'];
-$City = $_SESSION['City'];
-$Country = $_SESSION['Country'];
 
-?>
 
 <html>
 
@@ -13,13 +7,7 @@ $Country = $_SESSION['Country'];
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<style>
-		table,
-		td,
-		th {
-			margin: 1em;
-			border: 2px solid orange;
-			
-		}
+		
 	</style>
 	<title>SPOTIFY - IES Leonardo Da Vinci</title>
 	<link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -37,19 +25,15 @@ $Country = $_SESSION['Country'];
 				<!-- INICIO DEL FORMULARIO -->
 				<form action="./descargas_controller.php" method="post">
 
-					<B>Nombre Cliente:</B> <?php echo $Name ?> <BR>
-					<B>Dirección:</B> <?php echo $Address ?> <BR>
-					<B>Ciudad </B> <?php echo $City ?> <BR>
-					<B>País:</B> <?php echo $Country ?><BR><BR>
+					<B>Nombre Cliente:</B>  <BR>
+					<B>Dirección:</B>  <BR>
+					<B>Ciudad </B>  <BR>
+					<B>País:</B> <BR><BR>
 
 					<label for="cancion"><B>Selecciona canción: </B></label>
 
 					<select name="cancion" class="form-control">
-						<?php
-						foreach ($resultado as $canciones) {
-
-							echo "<option value=$canciones[id],$canciones[price]> $canciones[track] || $canciones[price] || $canciones[album] || $canciones[artist]</option>";
-						} ?>
+						
 
 					</select><br>
 					<label for="cantidad"><B>Introduce una cantidad </B></label>

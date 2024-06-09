@@ -1,34 +1,24 @@
-<?php
-	$Name=$_SESSION['Name'];
-	$Address=$_SESSION['Address'];
-   	$City=$_SESSION['City'];
-   $Country=$_SESSION['Country'];
-
-?>
-
 <html>
    
    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SPOTIFY - IES Leonardo Da Vinci</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    </head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>SPOTIFY - IES Leonardo Da Vinci</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	</head>
    
-    <body>
-   
-
-    <div class="container ">
-        <!--Aplicacion-->
+	<body>
+	<div class="container ">
+		<!--Aplicacion-->
 		<div class="card border-success mb-3" style="max-width: 30rem;">
 		<div class="card-header">Menú Usuario - SPOTIFY IES Leonardo Da Vinci</div>
 		<div class="card-body">
 	
-	<B>Nombre Cliente:</B> <?php echo $Name ?>  <BR>
-	<B>Dirección:</B> <?php echo $Address ?> <BR>
-	<B>Ciudad </B> <?php echo $City ?> <BR>
-	<B>País:</B> <?php echo $Country ?><BR><BR>
+	<B>Nombre Cliente:</B>  <BR>
+	<B>Dirección:</B>  <BR>
+	<B>Ciudad </B>  <BR>
+	<B>País:</B> <BR><BR>
 			
 		<!--Formulario con botones -->
 		<input type="button" value="Descargar Canciones" onclick="window.location.href='./descargas_controller.php'" class="btn btn-warning disabled">
@@ -41,7 +31,7 @@
 	</div>  
 	  
 	  
-     
+	 
    </body>
    
 </html>
