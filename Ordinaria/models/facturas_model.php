@@ -6,7 +6,7 @@ function select_facturas($Desde,$Hasta){
 
     try {
         //sentencia
-        $stmt = $conexion->prepare(" SELECT InvoiceId,InvoiceDate,Total from invoice where date(InvoiceDate) BETWEEN :Desde AND :Hasta AND CustomerID=:CustomerID "); 
+        $stmt = $conexion->prepare(" SELECT    from invoice where date(InvoiceDate) BETWEEN :Desde AND :Hasta AND CustomerID=:CustomerID "); 
         $stmt->bindParam(":Desde",$Desde);
         $stmt->bindParam(":Hasta",$Hasta);
         $stmt->bindParam(":CustomerID",$_SESSION['Id']);
@@ -21,6 +21,7 @@ function select_facturas($Desde,$Hasta){
 
 
     return $resultado;
+    
 
 }
 

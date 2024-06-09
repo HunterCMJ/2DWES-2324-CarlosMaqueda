@@ -85,21 +85,22 @@ function insertUpdate($carrito){
         $stmt->execute();
 
         foreach ($carrito as $key => $value) {
-        $maxInvoice=select_maxInvoiceLine();
-        
-        $maxInvoice=intval($maxInvoice['max'])+1;
+            
+            $maxInvoice=select_maxInvoiceLine();
+            
+            $maxInvoice=intval($maxInvoice['max'])+1;
 
-        $stmt1 = $conexion->prepare("INSERT into invoiceline (InvoiceId,InvoiceLineId,TrackId,UnitPrice,Quantity) values (:InvoiceId,:InvoiceLineId,:TrackId,:UnitPrice,:Quantity)");
+            $stmt1 = $conexion->prepare("INSERT into invoiceline (InvoiceId,InvoiceLineId,TrackId,UnitPrice,Quantity) values (:InvoiceId,:InvoiceLineId,:TrackId,:UnitPrice,:Quantity)");
 
-        $stmt1->bindParam(":InvoiceId", $invoiceID);
-        $stmt1->bindParam(":InvoiceLineId", $maxInvoice);
-        $stmt1->bindParam(":TrackId", $key);
-        
-        $stmt1->bindParam(":UnitPrice", $value['precio']);
-        $stmt1->bindParam(":Quantity", $value['cantidad']);
-        $stmt1->execute();
+            $stmt1->bindParam(":InvoiceId", $invoiceID);
+            $stmt1->bindParam(":InvoiceLineId", $maxInvoice);
+            $stmt1->bindParam(":TrackId", $key);
+            
+            $stmt1->bindParam(":UnitPrice", $value['precio']);
+            $stmt1->bindParam(":Quantity", $value['cantidad']);
+            $stmt1->execute();
       
-    }
+        }
         
         
     } catch (Exception $e) {

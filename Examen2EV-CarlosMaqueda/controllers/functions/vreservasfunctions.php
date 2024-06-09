@@ -103,8 +103,8 @@ function paramspago($miObj){
     $moneda = "978";
     $trans = "0";
     $url = "";
-    $urlOK = "http://localhost/Examen2EV-CarlosMaqueda/controllers/vreservas_controller.php";
-    $urlKO = "http://localhost/Examen2EV-CarlosMaqueda/controllers/vreservas_controller.php";
+    $urlOK = "http://localhost/2DWES-2324-CARLOSMAQUEDA/Examen2EV-CarlosMaqueda/controllers/vreservas_controller.php";
+    $urlKO = "http://localhost/2DWES-2324-CARLOSMAQUEDA/Examen2EV-CarlosMaqueda/controllers/vreservas_controller.php";
     
     //echo "va a realizar un pago con identificador: $id";
     // Se Rellenan los campos

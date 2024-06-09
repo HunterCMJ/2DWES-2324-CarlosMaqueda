@@ -14,7 +14,7 @@ $fecha = $_SESSION['fecha'];
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<style>
-          table,td,th {
+          table,td,th {	
            margin: 1em;
             border: 2px solid green;
             width: 3em;

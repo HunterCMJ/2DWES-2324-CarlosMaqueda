@@ -27,7 +27,13 @@ if (isset($_POST['descargar'])) {
 
         insertUpdate($carrito);
         borrarcookiecarrito($carrito);  
+        $valor=true;
+        
+        while ($valor) {
 
+            header('refresh:0');
+            $valor=false;
+        }
        
        
     }
